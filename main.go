@@ -1,19 +1,16 @@
 package main
 
 import (
+	"address_bloc/controller"
 	"address_bloc/model"
-	"fmt"
 )
 
 func main() {
-	addressBook := model.AddressBook{}
-	testEntry1 := &model.Entry{Name: "Alex", Email: "alex@example.com", PhoneNumber: "1112223333"}
-	testEntry2 := &model.Entry{Name: "Jessica", Email: "jessica@example.com", PhoneNumber: "1112223333"}
+	addressBook := &model.AddressBook{}
+	entry := &model.Entry{Name: "Alex", Email: "alex@example.com", PhoneNumber: "1112223333"}
+	addressBook.AddEntry(entry)
 
-	addressBook.AddEntry(testEntry1)
-	addressBook.AddEntry(testEntry2)
+	menuController := controller.Menu{AddressBook: addressBook}
 
-	for _, entry := range addressBook.Entries {
-		fmt.Println(entry.Display())
-	}
+	menuController.MainMenu()
 }

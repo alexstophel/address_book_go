@@ -1,5 +1,7 @@
 package model
 
+import "errors"
+
 type AddressBook struct {
 	Entries []*Entry
 }
@@ -20,4 +22,21 @@ func (addressBook *AddressBook) RemoveEntry(name string, email string, phoneNumb
 	}
 
 	addressBook.Entries = append(entries[:indexToRemove], entries[indexToRemove+1:]...)
+}
+
+func (addressBook *AddressBook) Search(query string) (*Entry, error) {
+	var result *Entry
+
+	for _, entry := range addressBook.Entries {
+		if entry.Name == query {
+			result = entry
+			break
+		}
+	}
+
+	if result == nil {
+		return result, errors.New("entry not found")
+	}
+
+	return result, nil
 }
